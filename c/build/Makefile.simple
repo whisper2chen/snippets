@@ -1,0 +1,16 @@
+AE_PATH=$(shell pwd)/libae
+AE_LIB=$(AE_PATH)/libae.a
+CFLAGS=-g -Wall -I$(AE_PATH)/src
+LIBS=-lm -pthread
+
+app: main.c $(AE_LIB)
+	gcc $(CFLAGS) -o app main.c $(AE_LIB) $(LIBS)
+
+$(AE_LIB):
+	cd $(AE_PATH) && make
+
+.PHONY: clean
+
+clean:
+	rm -f app
+	cd $(AE_PATH) && make clean
